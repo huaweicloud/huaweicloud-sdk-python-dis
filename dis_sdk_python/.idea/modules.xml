@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../huaweicloud-sdk-dis-python-2.0.0/dis-sdk-python-demo/.idea/examples.iml" filepath="$PROJECT_DIR$/../huaweicloud-sdk-dis-python-2.0.0/dis-sdk-python-demo/.idea/examples.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/sdk_tar.iml" filepath="$PROJECT_DIR$/.idea/sdk_tar.iml" />
+    </modules>
+  </component>
+</project>
