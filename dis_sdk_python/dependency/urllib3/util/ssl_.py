@@ -140,15 +140,15 @@ except ImportError:
             self.ciphers = cipher_suite
 
         def wrap_socket(self, socket, server_hostname=None, server_side=False):
-            warnings.warn(
-                'A true SSLContext object is not available. This prevents '
-                'urllib3 from configuring SSL appropriately and may cause '
-                'certain SSL connections to fail. You can upgrade to a newer '
-                'version of Python to solve this. For more information, see '
-                'https://urllib3.readthedocs.io/en/latest/advanced-usage.html'
-                '#ssl-warnings',
-                InsecurePlatformWarning
-            )
+            # warnings.warn(
+            #     'A true SSLContext object is not available. This prevents '
+            #     'urllib3 from configuring SSL appropriately and may cause '
+            #     'certain SSL connections to fail. You can upgrade to a newer '
+            #     'version of Python to solve this. For more information, see '
+            #     'https://urllib3.readthedocs.io/en/latest/advanced-usage.html'
+            #     '#ssl-warnings',
+            #     InsecurePlatformWarning
+            # )
             kwargs = {
                 'keyfile': self.keyfile,
                 'certfile': self.certfile,
