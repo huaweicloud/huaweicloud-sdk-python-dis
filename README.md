@@ -196,7 +196,7 @@ Usage
 Examples
 -----------
 
-see more examples in `examples <https://github.com/huaweicloud/huaweicloud-sdk-python-dis/tree/master/dis_sdk_python_demo>`__
+see more examples in [examples](https://github.com/huaweicloud/huaweicloud-sdk-python-dis/tree/master/dis_sdk_python_demo)
 
 
 Contributing
