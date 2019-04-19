@@ -1,5 +1,4 @@
 #!/usr/bin/python
-#!/usr/bin/python
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
