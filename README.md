@@ -10,7 +10,7 @@ The quick way:
 
 .. code:: shell
 
-    $ sudo pip install dis_sdk_python
+    pip install huaweicloud-python-sdk-dis
 
 Python Version
 -------------------
