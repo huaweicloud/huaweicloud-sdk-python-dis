@@ -8,8 +8,6 @@ Installation
 
 The quick way:
 
-.. code:: shell
-
     pip install huaweicloud-python-sdk-dis
 
 Python Version
@@ -19,8 +17,6 @@ Tested on Python 2.7, 3.3, 3.4, 3.5, 3.6 and pypy, Python 3.6 recommended
 
 Usage
 -----
-
-.. code:: python
 
     from dis_sdk_python import *
     cli = disclient(endpoint='**your-endpoint**',
@@ -204,8 +200,6 @@ Contributing
 
 For a development install, clone the repository and then install from
 source:
-
-::
 
     git clone https://github.com/huaweicloud/huaweicloud-sdk-python-dis.git
 
