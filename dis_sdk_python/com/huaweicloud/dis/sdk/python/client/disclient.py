@@ -6,8 +6,8 @@ import os
 import sys
 import time
 
-from dis_sdk_python.dependency import requests
-from dis_sdk_python.dependency import urllib3
+import requests
+import urllib3
 
 from dis_sdk_python.com.huaweicloud.dis.sdk.python.models import disauth
 from dis_sdk_python.com.huaweicloud.dis.sdk.python.models import disrequest

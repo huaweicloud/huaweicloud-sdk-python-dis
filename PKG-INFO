@@ -1,0 +1,22 @@
+Metadata-Version: 1.1
+Name: huaweicloud-sdk-python-dis
+Version: 2.6.2
+Summary: An SDK for building applications to work with Huaweicloud Data Ingestion Service
+Home-page: https://github.com/huaweicloud/huaweicloud-sdk-python
+Author: huawei
+Author-email:
+License: UNKNOWN
+Description: Python SDK for DIS
+
+Platform: UNKNOWN
+Classifier: Environment :: OpenStack
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7

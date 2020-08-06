@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-from dis_sdk_python.dependency import requests
+import requests
 from dis_sdk_python.com.huaweicloud.dis.sdk.python.models.disexception import DisException
 
 # requests.packages.urllib3.disable_warnings()
