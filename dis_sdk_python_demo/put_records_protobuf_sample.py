@@ -2,19 +2,20 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-streamname = "dis_test1"
+stream_name = "dis_test1"
 
-def protobuf_putRecords_test():
-    cli = disclient(endpoint='', ak='', sk='', projectid='', region='',bodySerializeType='protobuf')
+
+def put_records_protobuf_test():
+    cli = disclient(endpoint='', ak='', sk='', projectid='', region='', bodySerializeType='protobuf')
 
     records = []
-    record1={"data": "xxxxx", "partition_key": '0'}
+    record1 = {"data": "xxxxx", "partition_key": '0'}
     record2 = {"data": "xxxxx", "partition_key": '0'}
     records.append(record1)
     records.append(record2)
 
     try:
-        r = cli.putRecords(streamname,records)
+        r = cli.putRecords(stream_name, records)
         print(r.statusCode)
         # print(r.recordResult)
         try:
@@ -28,11 +29,6 @@ def protobuf_putRecords_test():
         print(ex)
 
 
-
-
 if __name__ == '__main__':
-    print("Use your Stream to protobuf_putRecords")
-    protobuf_putRecords_test()
-
-
-
+    print("Use your Stream to put records using protobuf")
+    put_records_protobuf_test()

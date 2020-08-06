@@ -2,19 +2,22 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-appName="a"
+app_name = "a"
 
 
-def deleteApp_test():
+def describe_app_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
     try:
-        r=cli.deleteApp(appName=appName)
+        r = cli.describeApp(app_name)
         print(r.statusCode)
+        if IS_PYTHON2:
+            print(json.dumps(r.body))
+        else:
+            print(r.body)
     except Exception as ex:
         print(str(ex))
 
 
 if __name__ == '__main__':
-    print("start deleteApp")
-    deleteApp_test()
-
+    print("Start describe App")
+    describe_app_test()

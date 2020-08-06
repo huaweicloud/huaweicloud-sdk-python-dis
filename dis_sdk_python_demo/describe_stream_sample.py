@@ -2,18 +2,19 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-streamname = "dis-oeYF"
+stream_name = "dis-oeYF"
 
-def describeStream_test():
+
+def describe_stream_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
     try:
-        hasMorePartitions = True
-        startPartitionId = ""
+        has_more_partitions = True
+        start_partition_id = ""
         partitions = []
-        while hasMorePartitions:
-            r=cli.describeStream(streamname, startPartitionId)
-            hasMorePartitions = r.hasMorePartitions
-            startPartitionId = r.partitions[-1].get('partition_id')
+        while has_more_partitions:
+            r = cli.describeStream(stream_name, start_partition_id)
+            has_more_partitions = r.hasMorePartitions
+            start_partition_id = r.partitions[-1].get('partition_id')
             partitions.extend(r.partitions)
             if IS_PYTHON2:
                 print(json.dumps(r.body))
@@ -24,11 +25,6 @@ def describeStream_test():
         print(str(ex))
 
 
-
 if __name__ == '__main__':
     print("describe your Stream")
-    describeStream_test()
-
-
-
-
+    describe_stream_test()

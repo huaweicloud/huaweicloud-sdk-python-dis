@@ -2,20 +2,20 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-streamname = "dis_test1"
-appName="a"
+stream_name = "dis_test1"
+partition_count = 1
 
-def deleteCheckpoint_test():
+
+def create_stream_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
     try:
-        r=cli.deleteCheckpoint(streamName=streamname,appName=appName)
+        r = cli.createStream(stream_name, partition_count, data_type='JSON', stream_type='COMMON')
         print(r.statusCode)
+
     except Exception as ex:
         print(str(ex))
 
 
-
 if __name__ == '__main__':
-    print("start commit your Checkpoint")
-    deleteCheckpoint_test()
-
+    print("start createStream ")
+    create_stream_test()

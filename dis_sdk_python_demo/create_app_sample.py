@@ -2,13 +2,13 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-appName="a"
+app_name = "a"
 
 
-def createApp_test():
+def create_app_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
     try:
-        r=cli.createApp(appName=appName)
+        r = cli.createApp(appName=app_name)
         print(r.statusCode)
     except Exception as ex:
         print(str(ex))
@@ -16,5 +16,5 @@ def createApp_test():
 
 if __name__ == '__main__':
     print("start createApp")
-    createApp_test()
+    create_app_test()
 

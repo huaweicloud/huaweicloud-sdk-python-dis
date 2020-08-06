@@ -2,15 +2,15 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-streamname = "dis_test1"
-partitionId="shardId-0000000000"
+stream_name = "dis_test1"
+partition_id = "shardId-0000000000"
 
 
-def getCursor_test():
+def get_cursor_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
     try:
         # startSeq与AT_SEQUENCE_NUMBER/AFTER_SEQUENCE_NUMBER搭配使用
-        r = cli.getCursor(streamname, partitionId, cursorType='AT_SEQUENCE_NUMBER', startSeq="0")
+        r = cli.getCursor(stream_name, partition_id, cursorType='AT_SEQUENCE_NUMBER', startSeq="0")
         # r = cli.getCursor(streamname, partitionId, cursorType='AFTER_SEQUENCE_NUMBER', startSeq="0")
         # timestamp与AT_TIMESTAMP搭配使用
         # r = cli.getCursor(streamname, partitionId, cursorType='AT_TIMESTAMP',timestamp=1554694135190)
@@ -25,8 +25,6 @@ def getCursor_test():
         print(str(ex))
 
 
-
 if __name__ == '__main__':
     print("Use your Stream to get Cursor")
-    getCursor_test()
-
+    get_cursor_test()

@@ -2,14 +2,15 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-streamname = "dis_test1"
-partitionId="shardId-0000000000"
+stream_name = "dis_test1"
+partitionId = "shardId-0000000000"
 
 
 def getRecords_test():
-    cli = disclient(endpoint='', ak='', sk='', projectid='', region='', bodySerializeType='protobuf')
+    cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
     try:
-        r = cli.getCursor(streamname, partitionId, cursorType='AT_SEQUENCE_NUMBER', startSeq="0")
+        r = cli.getCursor(stream_name, partitionId, cursorType='AT_SEQUENCE_NUMBER', startSeq="0")
+        # r = cli.getCursor(streamname, partitionId, cursorType='AFTER_SEQUENCE_NUMBER', startSeq="0")
         # r = cli.getCursor(streamname, partitionId, cursorType='AFTER_SEQUENCE_NUMBER', startSeq="0")
         # r = cli.getCursor(streamname, partitionId, cursorType='AT_TIMESTAMP',timestamp=1554694135190)
         # r = cli.getCursor(streamname, partitionId, cursorType='TRIM_HORIZON')
@@ -28,13 +29,13 @@ def getRecords_test():
                 # for i in r.getRecordResult(r.recordResult):
                 #     print("record[{}],sequenceNumber[{}],partitionKey[{}],timestamp[{}],timestamp_type[{}]".format(
                 #         i.data, i.sequence_number, i.partitionKey,i.timestamp,i.timestamp_type))
-            else:break
+            else:
+                break
+
     except Exception as ex:
         print(str(ex))
 
 
 if __name__ == '__main__':
-    print("Use your Stream to protobuf_getrecords")
+    print("Use your Stream to get data")
     getRecords_test()
-
-
