@@ -21,9 +21,9 @@
 
 from setuptools import setup, find_packages
 setup(
-    name='dis_sdk_python',
-    version='2.6.2',
-    description='DIS Python SDK',
+    name='huaweicloud-python-sdk-dis',
+    version='2.0.1',
+    description='Huawei Cloud DIS SDK for Python',
     url='https://github.com/huaweicloud/huaweicloud-sdk-python-dis',
     author='Huawei',
     author_email='',
