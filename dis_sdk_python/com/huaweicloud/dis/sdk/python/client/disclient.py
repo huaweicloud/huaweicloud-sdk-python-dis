@@ -488,8 +488,10 @@ class disclient(object):
     def put_records(self, stream_name, stream_id, records):
         """
         support authorization scenarios use stream_id
-        stream_name and stream_id pick one of two
-        use stream_name when both exist
+        stream_name is mandatory parameter, can be an empty string.
+        stream_id is mandatory parameter, can be an empty string.
+        stream_name and stream_id can not both be empty string.
+        use stream_name when both not be empty string
         :param stream_name: stream name
         :param stream_id: stream id
         :param records: records

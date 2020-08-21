@@ -22,7 +22,7 @@
 from setuptools import setup, find_packages
 setup(
     name='huaweicloud-python-sdk-dis',
-    version='2.0.3',
+    version='2.0.4',
     description='Huawei Cloud DIS SDK for Python',
     url='https://github.com/huaweicloud/huaweicloud-sdk-python-dis',
     author='Huawei',

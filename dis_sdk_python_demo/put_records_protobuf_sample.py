@@ -5,6 +5,7 @@ from dis_sdk_python import *
 stream_name = "dis_test"
 # stream_name = ""
 stream_id = "xxxxxxxxxxxxxxxxxxx"
+# stream_id = ""
 
 
 def put_records_protobuf_test():
@@ -46,6 +47,7 @@ def put_records_protobuf_test_stream_id():
             print(r.body)
     except Exception as ex:
         print(ex)
+
 
 if __name__ == '__main__':
     print("Use your Stream to put records using protobuf")
