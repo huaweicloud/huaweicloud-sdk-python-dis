@@ -2,7 +2,9 @@
 # -*- coding:utf-8 -*-
 from dis_sdk_python import *
 
-stream_name = "dis_test1"
+stream_name = "dis_test"
+# stream_name = ""
+stream_id = "xxxxxxxxxxxxxxxxxxx"
 
 
 def put_records_test():
@@ -15,16 +17,12 @@ def put_records_test():
     records.append(record2)
 
     try:
-        r = cli.putRecords(stream_name, records)
+        r = cli.putRecords(stream_name, stream_id, records)
         print(r.statusCode)
-        # print(r.recordResult)
         try:
             print(json.dumps(r.body))
         except:
             print(r.body)
-
-        # for i in r.getSendRecordResult(r.recordResult):
-        #     print("%s %s %s %s" % (i.partition_id,i.sequence_number,i.error_code, i.error_message))
 
     except Exception as ex:
         print(str(ex))
