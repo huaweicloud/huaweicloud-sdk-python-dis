@@ -6,6 +6,7 @@ option java_outer_classname="Message";
  
 message PutRecordsRequest {
   required string streamName = 1;
+  required string streamId = 30;
   repeated PutRecordsRequestEntry records = 2;
 }
  

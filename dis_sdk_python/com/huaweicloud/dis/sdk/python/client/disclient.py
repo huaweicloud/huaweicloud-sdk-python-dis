@@ -312,7 +312,7 @@ class disclient(object):
         (statusCode, responseData) = self.__sendRequest(req)
         return disStreamresponse.disdescribedumptaskResponse(statusCode, responseData)
 
-    def __sendRecords(self, streamName, records, ak="", sk="", xSecrityToken=""):
+    def __sendRecords(self, streamName, streamId, records, ak="", sk="", xSecrityToken=""):
         '''
         send records to the specify stream.
 
@@ -330,6 +330,7 @@ class disclient(object):
             from dis_sdk_python.com.huaweicloud.dis.sdk.python.proto import record_pb2
             p = record_pb2.PutRecordsRequest()
             p.streamName = streamName
+            p.streamId = streamId
             for j in records:
                 p1 = p.records.add()
                 if j.get('partition_key') != None:
@@ -357,7 +358,7 @@ class disclient(object):
                     data1['data'] = str(tempdata, 'utf-8')
                 return data1
             records=list(map(data_Base64, records))
-            jsonBody = {"stream_name": streamName, "records": records}
+            jsonBody = {"stream_name": streamName, "stream_id": streamId, "records": records}
             jsonString = json.dumps(jsonBody)
 
 
@@ -377,7 +378,7 @@ class disclient(object):
         end_list.append(init_list[-count:]) if count != 0 else end_list
         return end_list
 
-    def __Refine_data(self, streamname, records):
+    def __Refine_data(self, stream_name, stream_id, records):
         totalPutRecordsResultEntryList = {}
         totalPutRecordsResultEntryList['failed_record_count'] = 0
         totalPutRecordsResultEntryList['records'] = []
@@ -392,7 +393,7 @@ class disclient(object):
             if retryCount != -1:
                 time.sleep(wait)
                 wait = wait * 2
-            r = self.__sendRecords(streamname, retryPutRecordsRequest)
+            r = self.__sendRecords(stream_name, stream_id, retryPutRecordsRequest)
             currentFailed = r.failedRecordCount
             # print("%s: send %s records,failed %s records,retryCount %s" % (
             # streamname, len(retryPutRecordsRequest), currentFailed, retryCount + 1))
@@ -436,7 +437,7 @@ class disclient(object):
         totalPutRecordsResultEntryList["failed_record_count"] += len(retryIndex)
         totalPutRecordsResultEntryList["records"].extend(putRecordsResultEntryList)
         Faile_count = int(totalPutRecordsResultEntryList.get('failed_record_count'))
-        log('{}:send {} records,failed {} records'.format(streamname, len(records), Faile_count), 'info')
+        log('{}{}:send {} records,failed {} records'.format(stream_name, stream_id, len(records), Faile_count), 'info')
         return totalPutRecordsResultEntryList
 
     def putRecords(self, streamname, records):
@@ -479,9 +480,27 @@ class disclient(object):
                 end_list[i] = end_list[i][len(b):]
         for j in range(0, len(new_records)):
             rangeRecords = new_records[j]
-            r = self.__Refine_data(streamname, rangeRecords)
+            r = self.__Refine_data(streamname, "", rangeRecords)
             totalPutRecordsResultEntryList['failed_record_count'] += r['failed_record_count']
             totalPutRecordsResultEntryList['records'].extend(r['records'])
+        return disrecordresponse.disPutRecordsResponse(200, totalPutRecordsResultEntryList)
+
+    def put_records(self, stream_name, stream_id, records):
+        """
+        support authorization scenarios use stream_id
+        stream_name and stream_id pick one of two
+        use stream_name when both exist
+        :param stream_name: stream name
+        :param stream_id: stream id
+        :param records: records
+        :return:
+        """
+        totalPutRecordsResultEntryList = {}
+        totalPutRecordsResultEntryList['failed_record_count'] = 0
+        totalPutRecordsResultEntryList['records'] = []
+        r = self.__Refine_data(stream_name, stream_id, records)
+        totalPutRecordsResultEntryList['failed_record_count'] += r['failed_record_count']
+        totalPutRecordsResultEntryList['records'].extend(r['records'])
         return disrecordresponse.disPutRecordsResponse(200, totalPutRecordsResultEntryList)
 
     def getCursor(self, streamName, partitionId, cursorType, startSeq='', timestamp='',ak="", sk="", xSecrityToken=""):

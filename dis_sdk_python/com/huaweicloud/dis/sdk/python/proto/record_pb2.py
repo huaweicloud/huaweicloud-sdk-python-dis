@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto2',
   serialized_options=_b('\n&com.huaweicloud.dis.iface.api.protobufB\007Message'),
-  serialized_pb=_b('\n\x0crecord.proto\"Q\n\x11PutRecordsRequest\x12\x12\n\nstreamName\x18\x01 \x02(\t\x12(\n\x07records\x18\x02 \x03(\x0b\x32\x17.PutRecordsRequestEntry\"\xb8\x01\n\x16PutRecordsRequestEntry\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x17\n\x0f\x65xplicitHashKey\x18\x04 \x01(\t\x12\x14\n\x0cpartitionKey\x18\x05 \x01(\t\x12\x13\n\x0bpartitionId\x18\x06 \x01(\t\x12\x39\n\x0c\x65xtendedInfo\x18\x07 \x01(\x0b\x32#.PutRecordsRequestEntryExtendedInfo\x12\x11\n\ttimestamp\x18\x1d \x01(\x03\"u\n\"PutRecordsRequestEntryExtendedInfo\x12\x10\n\x08\x66ileName\x18\x08 \x02(\t\x12\x15\n\rdeliverDataId\x18\t \x02(\t\x12\x16\n\x07\x65ndFlag\x18\n \x01(\x08:\x05\x66\x61lse\x12\x0e\n\x06seqNum\x18\x0b \x02(\x03\"V\n\x10PutRecordsResult\x12\x19\n\x11\x66\x61iledRecordCount\x18\x15 \x02(\x05\x12\'\n\x07records\x18\x16 \x03(\x0b\x32\x16.PutRecordsResultEntry\"i\n\x15PutRecordsResultEntry\x12\x0f\n\x07shardId\x18\x17 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x18 \x01(\t\x12\x11\n\terrorCode\x18\x19 \x01(\t\x12\x14\n\x0c\x65rrorMessage\x18\x1a \x01(\t\"9\n\x11GetRecordsRequest\x12\x15\n\rshardIterator\x18\x0c \x02(\t\x12\r\n\x05limit\x18\r \x01(\x05\"G\n\x10GetRecordsResult\x12\x19\n\x11nextShardIterator\x18\x0e \x02(\t\x12\x18\n\x07records\x18\x10 \x03(\x0b\x32\x07.Record\"n\n\x06Record\x12\x14\n\x0cpartitionKey\x18\x11 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x12 \x02(\t\x12\x0c\n\x04\x64\x61ta\x18\x13 \x01(\x0c\x12\x11\n\ttimestamp\x18\x1b \x01(\x03\x12\x15\n\rtimestampType\x18\x1c \x01(\tB1\n&com.huaweicloud.dis.iface.api.protobufB\x07Message')
+  serialized_pb=_b('\n\x0crecord.proto\"c\n\x11PutRecordsRequest\x12\x12\n\nstreamName\x18\x01 \x02(\t\x12\x10\n\x08streamId\x18\x1e \x02(\t\x12(\n\x07records\x18\x02 \x03(\x0b\x32\x17.PutRecordsRequestEntry\"\xb8\x01\n\x16PutRecordsRequestEntry\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x17\n\x0f\x65xplicitHashKey\x18\x04 \x01(\t\x12\x14\n\x0cpartitionKey\x18\x05 \x01(\t\x12\x13\n\x0bpartitionId\x18\x06 \x01(\t\x12\x39\n\x0c\x65xtendedInfo\x18\x07 \x01(\x0b\x32#.PutRecordsRequestEntryExtendedInfo\x12\x11\n\ttimestamp\x18\x1d \x01(\x03\"u\n\"PutRecordsRequestEntryExtendedInfo\x12\x10\n\x08\x66ileName\x18\x08 \x02(\t\x12\x15\n\rdeliverDataId\x18\t \x02(\t\x12\x16\n\x07\x65ndFlag\x18\n \x01(\x08:\x05\x66\x61lse\x12\x0e\n\x06seqNum\x18\x0b \x02(\x03\"V\n\x10PutRecordsResult\x12\x19\n\x11\x66\x61iledRecordCount\x18\x15 \x02(\x05\x12\'\n\x07records\x18\x16 \x03(\x0b\x32\x16.PutRecordsResultEntry\"i\n\x15PutRecordsResultEntry\x12\x0f\n\x07shardId\x18\x17 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x18 \x01(\t\x12\x11\n\terrorCode\x18\x19 \x01(\t\x12\x14\n\x0c\x65rrorMessage\x18\x1a \x01(\t\"9\n\x11GetRecordsRequest\x12\x15\n\rshardIterator\x18\x0c \x02(\t\x12\r\n\x05limit\x18\r \x01(\x05\"G\n\x10GetRecordsResult\x12\x19\n\x11nextShardIterator\x18\x0e \x02(\t\x12\x18\n\x07records\x18\x10 \x03(\x0b\x32\x07.Record\"n\n\x06Record\x12\x14\n\x0cpartitionKey\x18\x11 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x12 \x02(\t\x12\x0c\n\x04\x64\x61ta\x18\x13 \x01(\x0c\x12\x11\n\ttimestamp\x18\x1b \x01(\x03\x12\x15\n\rtimestampType\x18\x1c \x01(\tB1\n&com.huaweicloud.dis.iface.api.protobufB\x07Message')
 )
 
 
@@ -41,7 +41,14 @@ _PUTRECORDSREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='records', full_name='PutRecordsRequest.records', index=1,
+      name='streamId', full_name='PutRecordsRequest.streamId', index=1,
+      number=30, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='records', full_name='PutRecordsRequest.records', index=2,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -60,7 +67,7 @@ _PUTRECORDSREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=16,
-  serialized_end=97,
+  serialized_end=115,
 )
 
 
@@ -125,8 +132,8 @@ _PUTRECORDSREQUESTENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=100,
-  serialized_end=284,
+  serialized_start=118,
+  serialized_end=302,
 )
 
 
@@ -177,8 +184,8 @@ _PUTRECORDSREQUESTENTRYEXTENDEDINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=286,
-  serialized_end=403,
+  serialized_start=304,
+  serialized_end=421,
 )
 
 
@@ -215,8 +222,8 @@ _PUTRECORDSRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=405,
-  serialized_end=491,
+  serialized_start=423,
+  serialized_end=509,
 )
 
 
@@ -267,8 +274,8 @@ _PUTRECORDSRESULTENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=493,
-  serialized_end=598,
+  serialized_start=511,
+  serialized_end=616,
 )
 
 
@@ -305,8 +312,8 @@ _GETRECORDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=600,
-  serialized_end=657,
+  serialized_start=618,
+  serialized_end=675,
 )
 
 
@@ -343,8 +350,8 @@ _GETRECORDSRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=659,
-  serialized_end=730,
+  serialized_start=677,
+  serialized_end=748,
 )
 
 
@@ -402,8 +409,8 @@ _RECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=732,
-  serialized_end=842,
+  serialized_start=750,
+  serialized_end=860,
 )
 
 _PUTRECORDSREQUEST.fields_by_name['records'].message_type = _PUTRECORDSREQUESTENTRY
