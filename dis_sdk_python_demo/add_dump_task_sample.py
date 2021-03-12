@@ -35,7 +35,7 @@ obs_Schema = DumpTask.setSchema(basic_Schema=basic_Schema,
 # dws_Schema = DumpTask.setSchema(basic_Schema=basic_Schema,
 #                 key=dws_dump_task,value=['dis-to-dws','72d6a2e2-c6cf-4ca2-8e58-b6e3b0c89464', 'a',
 #                                          'a','a','|',
-#                                          'xxxx','abc#123456',
+#                                          'xxxx','YOUR_PASSWORD',
 #                                          'dlf/default','7dbc8756-c274-4ad8-b9ae-0b43db2d3fe1',
 #                                          'obs-1253', ''])
 
