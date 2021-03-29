@@ -25,9 +25,7 @@ def get_records_protobuf_test():
                     print(json.dumps(r.body))
                 except:
                     print(r.body)
-                # for i in r.getRecordResult(r.recordResult):
-                #     print("record[{}],sequenceNumber[{}],partitionKey[{}],timestamp[{}],timestamp_type[{}]".format(
-                #         i.data, i.sequence_number, i.partitionKey,i.timestamp,i.timestamp_type))
+
             else:break
     except Exception as ex:
         print(str(ex))
