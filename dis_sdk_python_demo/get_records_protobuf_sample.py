@@ -10,10 +10,7 @@ def get_records_protobuf_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='', bodySerializeType='protobuf')
     try:
         r = cli.getCursor(stream_name, partitionId, cursorType='AT_SEQUENCE_NUMBER', startSeq="0")
-        # r = cli.getCursor(streamname, partitionId, cursorType='AFTER_SEQUENCE_NUMBER', startSeq="0")
-        # r = cli.getCursor(streamname, partitionId, cursorType='AT_TIMESTAMP',timestamp=1554694135190)
-        # r = cli.getCursor(streamname, partitionId, cursorType='TRIM_HORIZON')
-        # r = cli.getCursor(streamname, partitionId, cursorType='LATEST')
+
         cursor = r.cursor
         while cursor:
             r = cli.getRecords(partitioncursor=cursor)
