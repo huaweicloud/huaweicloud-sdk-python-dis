@@ -28,29 +28,6 @@ def put_records_test():
     except Exception as ex:
         print(str(ex))
 
-
-def put_records_test_stream_id():
-    cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
-
-    records = []
-    record1 = {"data": '{"a":"xx1"}', "partition_key": '0'}
-    record2 = {"data": '{"a":"xxx4445"}', "partition_key": '0'}
-    records.append(record1)
-    records.append(record2)
-
-    try:
-        r = cli.put_records(stream_name, stream_id, records)
-        print(r.statusCode)
-        try:
-            print(json.dumps(r.body))
-        except:
-            print(r.body)
-
-    except Exception as ex:
-        print(str(ex))
-
 if __name__ == '__main__':
     print("Use your Stream to putRecords")
     put_records_test()
-    put_records_test_stream_id()
-
