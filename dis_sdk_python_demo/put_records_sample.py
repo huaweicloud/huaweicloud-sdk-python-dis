@@ -4,7 +4,7 @@ from dis_sdk_python import *
 
 stream_name = "dis_test"
 # stream_name = ""
-stream_id = "xxxxxxxxxxxxxxxxxxx"
+stream_id = "xxxxxxxxxxxxxxxxxx"
 # stream_id = ""
 
 
