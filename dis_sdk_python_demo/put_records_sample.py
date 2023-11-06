@@ -12,8 +12,8 @@ def put_records_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
 
     records = []
-    record1 = {"data": '{"a":"xx1"}', "partition_id": '0'}
-    record2 = {"data": '{"a":"xxx4445"}', "partition_id": '0'}
+    record1 = {"data": '{"a":"xx1"}', "partition_id": 'shardId-0000000000'}
+    record2 = {"data": '{"a":"xxx4445"}', "partition_id": 'shardId-0000000000'}
     records.append(record1)
     records.append(record2)
 

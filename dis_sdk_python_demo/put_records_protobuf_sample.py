@@ -12,8 +12,8 @@ def put_records_protobuf_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='', bodySerializeType='protobuf')
 
     records = []
-    record1 = {"data": "xxxxx", "partition_id": '0'}
-    record2 = {"data": "xxxxx", "partition_id": '0'}
+    record1 = {"data": "xxxxx", "partition_id": 'shardId-0000000000'}
+    record2 = {"data": "xxxxx", "partition_id": 'shardId-0000000000'}
     records.append(record1)
     records.append(record2)
 
@@ -33,8 +33,8 @@ def put_records_protobuf_test_stream_id():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='', bodySerializeType='protobuf')
 
     records = []
-    record1 = {"data": "xxxxx", "partition_key": '0'}
-    record2 = {"data": "xxxxx", "partition_key": '0'}
+    record1 = {"data": "xxxxx", "partition_id": 'shardId-0000000000'}
+    record2 = {"data": "xxxxx", "partition_id": 'shardId-0000000000'}
     records.append(record1)
     records.append(record2)
 
