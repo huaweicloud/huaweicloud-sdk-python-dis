@@ -96,9 +96,9 @@ class disclient(object):
         req = disrequest.disRequest(method=method, host=self.host, uri=uri, query=query, headers=headers, body=body)
         ak = self.ak
         sk = self.sk
-        if userak is not "":
+        if userak != "":
             ak = userak
-        if usersk is not "":
+        if usersk != "":
             sk = usersk
         signer = disauth.Signer(ak, sk, self.region)
         signer.Sign(req)
@@ -108,7 +108,7 @@ class disclient(object):
         # req.headers['Connection']='keep-alive'
         # req.headers['Content-Length'] = '250'
 
-        if userxSecrityToken is not "":
+        if userxSecrityToken != "":
             req.headers["X-Security-Token"] = userxSecrityToken
 
         if (headers):
@@ -276,12 +276,13 @@ class disclient(object):
             del responseData['stream_info_list']
         return disStreamresponse.disListStreamResponse(statusCode, responseData)
 
-    def describeStream(self, streamName, startPartitionId="", limitPartitions=1000, ak="", sk="", xSecrityToken=""):
+    def describeStream(self, streamName, startPartitionId="", limitPartitions=1000, ak="", sk="", xSecrityToken="", streamId=""):
 
         param = {}
         if startPartitionId.strip():
             param["start_partitionId"] = startPartitionId
-
+        if streamId != '':
+            param["stream_id"] = streamId
         param["limit_partitions"] = limitPartitions
 
         uri = "/v2/" + self.projectid + "/streams/" + streamName
@@ -505,12 +506,15 @@ class disclient(object):
         totalPutRecordsResultEntryList['records'].extend(r['records'])
         return disrecordresponse.disPutRecordsResponse(200, totalPutRecordsResultEntryList)
 
-    def getCursor(self, streamName, partitionId, cursorType, startSeq='', timestamp='',ak="", sk="", xSecrityToken=""):
+    def getCursor(self, streamName, partitionId, cursorType, startSeq='', timestamp='',ak="", sk="", xSecrityToken="", streamId=""):
         '''
         the cursor is the pointer to get the data in partition.
 
         :type streamName string
         :param streamName the streamName ID which want to send data
+
+        :type streamId string
+        :param streamId the streamId which want to send data
 
         :type partitionId string
         :param partitionId the partition ID which want to get data, you can get all of the partition info from describeStream interface
@@ -531,7 +535,10 @@ class disclient(object):
            Sequence numbers for the same partition key generally increase over time; the longer the time period between write requests (PutRecords requests), the larger the sequence numbers become.
         '''
         param = {}
-        param["stream-name"] = streamName
+        if streamId != '':
+            param["stream-id"] = streamId
+        else:
+            param["stream-name"] = streamName
         param["partition-id"] = partitionId
         param["cursor-type"] = cursorType
         if startSeq.strip():
@@ -619,16 +626,24 @@ class disclient(object):
         return disAppresonse.disDeleteAppResponse(statusCode, responseData)
 
     def commitCheckpoint(self, streamName, appName, partitionId, seqNumber, metaData="", checkpointType="LAST_READ",
-                         ak="", sk="", xSecrityToken=""):
+                         ak="", sk="", xSecrityToken="", streamId=""):
 
         uri = "/v2/" + self.projectid + "/checkpoints/"
+        if streamId != '':
+            jsonData = {"stream_id": streamId,
+                        "app_name": appName,
+                        "partition_id": partitionId,
+                        "sequence_number": seqNumber,
+                        "metadata": metaData,
+                        "checkpoint_type": checkpointType}
+        else:
+            jsonData = {"stream_name": streamName,
+                        "app_name": appName,
+                        "partition_id": partitionId,
+                        "sequence_number": seqNumber,
+                        "metadata": metaData,
+                        "checkpoint_type": checkpointType}
 
-        jsonData = {"stream_name": streamName,
-                    "app_name": appName,
-                    "partition_id": partitionId,
-                    "sequence_number": seqNumber,
-                    "metadata": metaData,
-                    "checkpoint_type": checkpointType}
 
         jsonStrig = json.dumps(jsonData)
 
@@ -639,12 +654,17 @@ class disclient(object):
         return discheckpointresponse.disCommitCheckpointResponse(statusCode, responseData)
 
     def getCheckpoint(self, streamName, appName, partitionId, checkpointType="LAST_READ", ak="", sk="",
-                      xSecrityToken=""):
-
-        param = {"stream_name": streamName,
-                 "app_name": appName,
-                 "partition_id": partitionId,
-                 "checkpoint_type": checkpointType}
+                      xSecrityToken="", streamId=""):
+        if streamId != '':
+            param = {"stream_id": streamId,
+                     "app_name": appName,
+                     "partition_id": partitionId,
+                     "checkpoint_type": checkpointType}
+        else:
+            param = {"stream_name": streamName,
+                     "app_name": appName,
+                     "partition_id": partitionId,
+                     "checkpoint_type": checkpointType}
 
         uri = "/v2/" + self.projectid + "/checkpoints/"
 
@@ -653,10 +673,13 @@ class disclient(object):
         (statusCode, responseData) = self.__sendRequest(req)
         return discheckpointresponse.disGetCheckpointResponse(statusCode, responseData)
 
-    def deleteCheckpoint(self, streamName, appName, ak="", sk="", xSecrityToken=""):
+    def deleteCheckpoint(self, streamName, appName, ak="", sk="", xSecrityToken="", streamId=""):
 
         param={}
-        param['stream_name']=streamName
+        if streamId != '':
+            param["stream_id"] = streamId
+        else:
+            param['stream_name']=streamName
         param['app_name'] = appName
 
         uri = "/v2/" + self.projectid + "/checkpoints/"
@@ -681,7 +704,7 @@ class disclient(object):
         return disGetresponse.dischangepartitionCountResponse(statusCode, responseData)
 
     def streamConsume(self, streamName, appName, checkpoint_type='LAST_READ', start_partition_id=0, limit=10, ak="",
-                      sk="", xSecrityToken=""):
+                      sk="", xSecrityToken="", streamId=""):
 
         param={}
         param['start_partition_id']=start_partition_id
@@ -689,6 +712,9 @@ class disclient(object):
         param['limit'] = limit
 
         uri = "/v2/" + self.projectid + '/apps/' + appName + '/streams/' + streamName
+        if streamId != '':
+            param['stream_id'] = streamId
+            uri = "/v2/" + self.projectid + '/apps/' + appName + '/streams/' + streamId
         req = self.__generateRequest("GET", uri, query=param, headers={}, body="", userak=ak, usersk=sk,
                                      userxSecrityToken=xSecrityToken)
 
