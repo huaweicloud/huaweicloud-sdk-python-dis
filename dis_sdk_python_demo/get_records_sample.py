@@ -10,11 +10,7 @@ def getRecords_test():
     cli = disclient(endpoint='', ak='', sk='', projectid='', region='')
     try:
         r = cli.getCursor(stream_name, partitionId, cursorType='AT_SEQUENCE_NUMBER', startSeq="0")
-        # r = cli.getCursor(streamname, partitionId, cursorType='AFTER_SEQUENCE_NUMBER', startSeq="0")
-        # r = cli.getCursor(streamname, partitionId, cursorType='AFTER_SEQUENCE_NUMBER', startSeq="0")
-        # r = cli.getCursor(streamname, partitionId, cursorType='AT_TIMESTAMP',timestamp=1554694135190)
-        # r = cli.getCursor(streamname, partitionId, cursorType='TRIM_HORIZON')
-        # r = cli.getCursor(streamname, partitionId, cursorType='LATEST')
+
         cursor = r.cursor
         while cursor:
             r = cli.getRecords(partitioncursor=cursor)
@@ -26,9 +22,7 @@ def getRecords_test():
                     print(json.dumps(r.body))
                 except:
                     print(r.body)
-                # for i in r.getRecordResult(r.recordResult):
-                #     print("record[{}],sequenceNumber[{}],partitionKey[{}],timestamp[{}],timestamp_type[{}]".format(
-                #         i.data, i.sequence_number, i.partitionKey,i.timestamp,i.timestamp_type))
+
             else:
                 break
 

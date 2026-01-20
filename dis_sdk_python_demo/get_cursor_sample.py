@@ -11,11 +11,6 @@ def get_cursor_test():
     try:
         # startSeq与AT_SEQUENCE_NUMBER/AFTER_SEQUENCE_NUMBER搭配使用
         r = cli.getCursor(stream_name, partition_id, cursorType='AT_SEQUENCE_NUMBER', startSeq="0")
-        # r = cli.getCursor(streamname, partitionId, cursorType='AFTER_SEQUENCE_NUMBER', startSeq="0")
-        # timestamp与AT_TIMESTAMP搭配使用
-        # r = cli.getCursor(streamname, partitionId, cursorType='AT_TIMESTAMP',timestamp=1554694135190)
-        # r = cli.getCursor(streamname, partitionId, cursorType='TRIM_HORIZON')
-        # r = cli.getCursor(streamname, partitionId, cursorType='LATEST')
         print(r.statusCode)
         if IS_PYTHON2:
             print(json.dumps(r.body))
