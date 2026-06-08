@@ -64,7 +64,7 @@ class disclient(object):
     USER_AGENT = 'dis-python-sdk-v-' + DIS_SDK_VERSION
     TIME_OUT = 60
 
-    def __init__(self, endpoint, ak, sk, projectid, region, bodySerializeType=''):
+    def __init__(self, endpoint, ak, sk, projectid, region, bodySerializeType='', derivationKeySwitch=True):
         self.endpoint = endpoint
         if not endpoint.startswith("http"):
             self.endpoint = "https://" + endpoint
@@ -74,6 +74,7 @@ class disclient(object):
         self.projectid = projectid
         self.region = region
         self.bodySerializeType = bodySerializeType
+        self.derivationKeySwitch = derivationKeySwitch
         self._timeout = self.TIME_OUT
         self._useragent = self.USER_AGENT
         self.result = []
@@ -101,7 +102,10 @@ class disclient(object):
         if usersk != "":
             sk = usersk
         signer = disauth.Signer(ak, sk, self.region)
-        signer.Sign(req)
+        if self.derivationKeySwitch:
+            signer.SignWithDerivationKey(req)
+        else:
+            signer.Sign(req)
         req.headers["user-agent"] = self._useragent
         req.headers["Content-Type"] = "application/json; charset=UTF-8"
 
@@ -128,7 +132,11 @@ class disclient(object):
                     wait = wait * 2
                     rawRequest.headers.pop(disauth.HeaderXDate)
                     rawRequest.headers.pop(disauth.HeaderAuthorization)
-                    disauth.Signer(self.ak, self.sk, self.region).Sign(rawRequest)
+                    signer = disauth.Signer(self.ak, self.sk, self.region).Sign(rawRequest)
+                    if self.derivationKeySwitch:
+                        signer.SignWithDerivationKey(rawRequest)
+                    else:
+                        signer.Sign(rawRequest)
                 r = requests.request(method=rawRequest.method, url=url, params=rawRequest.query, data=rawRequest.body,
                                      headers=rawRequest.headers, timeout=self.TIME_OUT, verify=False)
 
