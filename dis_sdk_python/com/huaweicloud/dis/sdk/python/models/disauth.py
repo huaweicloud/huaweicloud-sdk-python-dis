@@ -18,12 +18,15 @@ BasicDateFormat = "%Y%m%dT%H%M%SZ"
 BasicDateFormatShort = "%Y%m%d"
 TerminationString = "sdk_request"
 Algorithm = "SDK-HMAC-SHA256"
+DerivationKeyAlgorithm="hmacsha256"
+SDKSigningDerivationKeyAlgorithm="V11-HMAC-SHA256"
 PreSKString = "SDK"
 HeaderXDate = "x-sdk-date"
 HeaderDate = "date"
 HeaderHost = "host"
 HeaderAuthorization = "Authorization"
 HeaderContentSha256 = "x-sdk-content-sha256"
+DerivationKeySwitch = "derivation.key.switch"
 
 
 def urlencode(s):
@@ -212,3 +215,51 @@ class Signer:
         if queryString != "":
             r.uri = r.uri + "?" + queryString
         '''
+
+    #SignRequest with derivation key
+    def SignWithDerivationKey(self, r):
+        from dis_sdk_python.com.huaweicloud.dis.sdk.python.utils.hkdf import getDerKey
+
+        headerTime = r.headers.get(HeaderXDate)
+        if headerTime is None:
+            t = datetime.utcnow()
+            r.headers[HeaderXDate] = datetime.strftime(t, BasicDateFormat)
+        else:
+            t = datetime.strptime(headerTime, BasicDateFormat)
+
+        if r.headers.get("host") is None:
+            if r.host.split(':')[-1] == '443' or '80':
+                r.host = r.host.split(':')[0]
+            r.headers["host"] = r.host
+
+        # Generate derivation key
+        dateStamp = datetime.strftime(t, BasicDateFormatShort)
+        info = dateStamp + "/" + self.Region + "/" + self.Service
+        derivation_key = getDerKey(self.AppKey, self.AppSecret, info, DerivationKeyAlgorithm)
+
+        # Use derivation key as secret for signing
+        canonicalRequest = CanonicalRequest(r)
+        credentialScope = CredentialScope(t, self.Region, self.Service)
+        stringToSign = StringToSignDerivationKey(canonicalRequest, credentialScope, t)
+        key = GenerateSigningKey(derivation_key, self.Region, self.Service, t)
+        signature = SignStringToSign(stringToSign, key)
+        signedHeaders = SignedHeaders(r)
+        authValue = AuthHeaderValueDerivationKey(signature, self.AppKey, credentialScope, signedHeaders)
+        r.headers[HeaderAuthorization] = authValue
+        r.headers["content-length"] = str(len(r.body))
+        del r.headers["host"]
+
+
+def StringToSignDerivationKey(canonicalRequest, credentialScope, t):
+        sha256 = hashlib.sha256()
+        sha256.update(canonicalRequest.encode('utf-8'))
+        bytes = sha256.hexdigest()
+        return "%s\n%s\n%s\n%s" % (SDKSigningDerivationKeyAlgorithm,
+                                   datetime.strftime(t, BasicDateFormat), credentialScope, bytes)
+
+
+
+def AuthHeaderValueDerivationKey(signature, AppKey, credentialScope, signedHeaders):
+        return "%s Credential=%s/%s, SignedHeaders=%s, Signature=%s" % (SDKSigningDerivationKeyAlgorithm,
+                                                                        AppKey, credentialScope, signedHeaders, signature)
+
